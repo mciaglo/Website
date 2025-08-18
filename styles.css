@@ -1,18 +1,17 @@
-
 :root{
   --bg: #0f1115;
   --panel: #161922;
   --text: #e6e6e6;
   --muted: #9aa0a6;
-  --accent: #7dd3fc;
-  --accent-strong: #38bdf8;
+  --accent: #86efac;         /* light green */
+  --accent-strong: #22c55e;  /* stronger green */
   --radius: 14px;
 }
 
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   background: radial-gradient(1200px 800px at 20% 0%, #131826, #0b0d12 60%);
   color: var(--text);
   line-height:1.6;
@@ -39,7 +38,8 @@ body{
 }
 
 .section{max-width:1100px; margin:2rem auto; padding:0 1.25rem}
-.section h2{font-size:1.6rem; margin-bottom:.75rem}
+.section h1, .section h2{margin: 0 0 .75rem}
+.muted{color:var(--muted)}
 
 .cards{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:1rem}
 .card{
@@ -64,4 +64,3 @@ body{
   .site-nav{display:none}
   .site-nav.open{display:flex; gap:1rem}
 }
-.accent{color: var(--accent)}
