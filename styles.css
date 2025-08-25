@@ -2,6 +2,7 @@
   --bg: #7b6f72;
   --panel: #e1ae7a;
   --text: #000000;
+  --black: #000000;
   --muted: #7b6f72;
   --accent: #e1ae7a;        /* amber */
   --accent-strong: #e3770b; /* deep amber */
@@ -28,7 +29,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(15,17,21,0.65);
+  background: var(--accent-strong);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid #1f2430;
 }
@@ -43,7 +44,7 @@ body {
 .nav-toggle {
   display: none;
   background: none;
-  border: 1px solid #2a3040;
+  border: 1px solid var(--black);
   color: var(--text);
   padding: .4rem .6rem;
   border-radius: 10px;
@@ -74,7 +75,7 @@ body {
 .btn {
   display: inline-block;
   background: linear-gradient(90deg, var(--accent), var(--accent-strong));
-  color: #7889a3;
+  color: var(--bg);
   font-weight: 700;
   padding: .8rem 1.2rem;
   border-radius: 999px;
@@ -100,8 +101,8 @@ body {
   background: var(--panel);
   padding: 1.5rem;
   border-radius: var(--radius);
-  border: 1px solid #202536;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--black);
+  box-shadow: 0 10px 30px var(--black));
   gap: 1.5rem;
 }
 
@@ -164,8 +165,8 @@ body {
   width: 100%;
   padding: .7rem .9rem;
   border-radius: 12px;
-  border: 1px solid #283044;
-  background: #0f1421;
+  border: 1px solid (--black);
+  background: var(--bg);
   color: var(--text);
 }
 .contact-form label {
