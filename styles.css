@@ -1,25 +1,25 @@
 /* ===== TOKENS: your palette + derived ===== */
 :root{
-  /* Your inputs (from your palette) */
-  --brand: #e1ae7a;
-  --brand-strong: #e3770b;
-  --bg-base: #7889a3;        /* used in gradient lines */
+  /* your colors */
+  --brand: #e1ae7a;        /* accent */
+  --brand-strong: #e3770b; /* accent strong */
+  --bg-base: #7889a3;      /* for subtle gradient lines */
   --ink: #000000;
   --muted-ink: #7889a38e;
 
-  /* Surfaces & lines (neutral) */
-  --surface-0: #fafaf9;      /* page/paper */
-  --surface-1: #ffffff;      /* cards/nav */
+  /* neutrals / surfaces */
+  --surface-0: #fafaf9;
+  --surface-1: #ffffff;
   --line: rgba(0,0,0,.12);
 
-  /* Radii & shadows */
+  /* radii / shadows */
   --radius-1: 10px;
   --shadow-1: 0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.08);
 
-  /* Space scale */
+  /* spacing */
   --s-1: 8px; --s-2: 12px; --s-3: 16px; --s-4: 24px; --s-5: 32px; --s-6: 40px; --s-8: 64px;
 
-  /* Type scale */
+  /* type scale */
   --fs-0: clamp(14px, 1.2vw, 16px);
   --fs-1: clamp(18px, 2vw, 20px);
   --fs-2: clamp(22px, 3vw, 28px);
@@ -36,7 +36,7 @@ body {
   line-height: 1.6;
 }
 
-/* Keep your gradient lines, with a safe fallback */
+/* keep your gradient lines with a safe fallback gate */
 @supports (background: color-mix(in srgb, white, black)) {
   body {
     background: radial-gradient(
@@ -49,7 +49,7 @@ body {
 
 .container { width: min(1100px, 92vw); margin-inline: auto; }
 
-/* ===== Header (Small Studio vibe: clean, thin border) ===== */
+/* ===== Header (studio-minimal) ===== */
 .site-header {
   position: sticky; top: 0; z-index: 10;
   background: var(--surface-1);
@@ -67,7 +67,7 @@ body {
 .site-nav a:hover { color: var(--ink); }
 .nav-toggle { display: none; margin-left: var(--s-3); }
 
-/* Mobile nav */
+/* mobile nav drawer */
 .mobile-nav {
   display: grid; gap: var(--s-2); padding: 0 var(--s-4) var(--s-3);
   background: var(--surface-1); border-bottom: 1px solid var(--line);
@@ -94,7 +94,7 @@ body {
 .section-head { margin-bottom: var(--s-4); }
 .section h2 { font-size: var(--fs-2); margin: 0 0 var(--s-2); }
 
-/* ===== Ventures: vertical media cards (stacked) ===== */
+/* ===== Ventures: exactly 3 cards, image left / text right ===== */
 .cards { display: grid; gap: var(--s-4); }
 .card {
   display: grid; grid-template-columns: 320px 1fr; gap: var(--s-4);
@@ -116,7 +116,7 @@ body {
   .card { grid-template-columns: 1fr; }
 }
 
-/* ===== Journal: featured + list (Jane vibe) ===== */
+/* ===== Journal: featured + compact list of 3 ===== */
 .featured {
   display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--s-4);
   background: var(--surface-1);
