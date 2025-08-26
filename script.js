@@ -1,22 +1,19 @@
-// footer year
-const yearEl = document.getElementById('year');
-if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-// mobile nav toggle
-const nav = document.getElementById('site-nav');
+// Mobile nav toggle
 const toggle = document.querySelector('.nav-toggle');
-if (toggle && nav){
+const mobileNav = document.getElementById('mobile-nav');
+if (toggle && mobileNav) {
   toggle.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    const open = mobileNav.hasAttribute('hidden') === false;
+    if (open) {
+      mobileNav.setAttribute('hidden', '');
+      toggle.setAttribute('aria-expanded', 'false');
+    } else {
+      mobileNav.removeAttribute('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
   });
 }
 
-// highlight current nav link (works for GitHub Pages subpaths)
-(function highlightNav(){
-  const path = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.site-nav a').forEach(a => {
-    const href = a.getAttribute('href');
-    if (href && href.endsWith(path)) a.style.color = 'white';
-  });
-})();
+// Year in footer
+const y = document.getElementById('year');
+if (y) y.textContent = new Date().getFullYear();
