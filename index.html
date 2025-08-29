@@ -7,13 +7,38 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Minimal override so the logo doesn’t consume the page -->
+  <style>
+    :root { --header-h: 64px; }
+    .site-header .inner {
+      height: var(--header-h);            /* fixed header height */
+      padding: 0;                         /* no left/right padding here */
+    }
+    .site-header .inner.container {       /* keep header aligned with page width */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .nav-logo {
+      height: 100%;                       /* fill header height */
+      width: auto;                        /* keep natural aspect ratio */
+      object-fit: contain;
+      display: block;
+      margin: 0 16px 0 0;                 /* some space before links */
+      border-radius: 0;                   /* ensure no circular mask */
+    }
+    /* Optional: tiny left breathing room; remove if you want fully flush */
+    .site-header { border-bottom: 1px solid var(--line); }
+  </style>
 </head>
 <body>
   <!-- Header -->
-  <header class="site-header">
-    <div class="inner">
+  <header class="site-header" role="banner">
+    <div class="inner container">
       <img src="images/Bird only_left_transparent.png" alt="Logo" class="nav-logo">
-      <nav class="site-nav"
+      <nav class="site-nav" role="navigation" aria-label="Primary">
         <a href="#services">Services</a>
         <a href="#journal">Journal</a>
         <a class="btn" href="#contact">Contact</a>
@@ -134,5 +159,9 @@
   </footer>
 
   <script src="script.js" defer></script>
+  <script>
+    // Basic current year fallback in case script.js doesn't set it
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
