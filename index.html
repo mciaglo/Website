@@ -8,42 +8,123 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <!-- Minimal override so the logo doesn’t consume the page -->
+  <!-- Responsive navbar overrides -->
   <style>
-    :root { --header-h: 64px; }
-    .site-header .inner {
-      height: var(--header-h);            /* fixed header height */
-      padding: 0;                         /* no left/right padding here */
+    :root { 
+      /* Responsive header height: scales with viewport */
+      --header-h: clamp(56px, 8vw, 80px);
     }
-    .site-header .inner.container {       /* keep header aligned with page width */
+
+    /* Make body edge-to-edge (prevents mysterious left gaps) */
+    html, body { margin: 0; padding: 0; }
+
+    /* Header container: full width bar, content width via .container */
+    .site-header { 
+      position: sticky; top: 0; z-index: 10;
+      background: var(--surface-1);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(6px);
+    }
+    .site-header .inner.container {
+      height: var(--header-h);
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: 16px;
+      /* the container class from your CSS centers & sizes the row */
     }
+
+    /* Brand/logo on the left */
+    .brand { display: inline-flex; align-items: center; text-decoration: none; }
     .nav-logo {
-      height: 100%;                       /* fill header height */
-      width: auto;                        /* keep natural aspect ratio */
+      height: calc(var(--header-h) - 12px); /* small buffer so it doesn’t touch edges */
+      width: auto;
       object-fit: contain;
       display: block;
-      margin: 0 16px 0 0;                 /* some space before links */
-      border-radius: 0;                   /* ensure no circular mask */
+      border-radius: 0;
     }
-    /* Optional: tiny left breathing room; remove if you want fully flush */
-    .site-header { border-bottom: 1px solid var(--line); }
+
+    /* Nav links on the right */
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-left: auto;   /* pushes links to the right */
+    }
+    .site-nav a { 
+      text-decoration: none; 
+      color: rgba(0,0,0,.70);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .site-nav a:hover { color: var(--ink); }
+
+    /* Hamburger button (hidden on desktop) */
+    .nav-toggle {
+      display: none;
+      appearance: none;
+      background: none;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: .45rem .6rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    /* Mobile layout */
+    @media (max-width: 760px){
+      .nav-toggle { display: inline-block; margin-left: auto; }   /* button on the right */
+      .site-nav { display: none; }                                /* hide inline links */
+
+      /* When header has .open, show the slide-down menu */
+      .site-header.open .mobile-nav { display: grid; }
+
+      /* Mobile drawer */
+      .mobile-nav {
+        display: none;
+        position: relative;
+        background: var(--surface-1);
+        border-bottom: 1px solid var(--line);
+        padding: 10px 0 12px;
+      }
+      .mobile-nav .container {
+        display: grid;
+        gap: 12px;
+      }
+      .mobile-nav a {
+        text-decoration: none;
+        color: rgba(0,0,0,.85);
+        font-weight: 600;
+        padding: 6px 0;
+      }
+    }
   </style>
 </head>
 <body>
   <!-- Header -->
   <header class="site-header" role="banner">
     <div class="inner container">
-      <img src="images/Bird only_left_transparent.png" alt="Logo" class="nav-logo">
+      <a href="/" class="brand" aria-label="Home">
+        <img src="images/Bird only_left_transparent.png" alt="Logo" class="nav-logo">
+      </a>
+
+      <!-- Desktop nav -->
       <nav class="site-nav" role="navigation" aria-label="Primary">
         <a href="#services">Services</a>
         <a href="#journal">Journal</a>
         <a class="btn" href="#contact">Contact</a>
-        <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">☰</button>
       </nav>
+
+      <!-- Hamburger (visible on small screens) -->
+      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">☰</button>
+    </div>
+
+    <!-- Mobile drawer (links repeated for mobile; simple + accessible) -->
+    <div id="mobile-nav" class="mobile-nav" role="navigation" aria-label="Mobile">
+      <div class="container">
+        <a href="#services">Services</a>
+        <a href="#journal">Journal</a>
+        <a class="btn" href="#contact">Contact</a>
+      </div>
     </div>
   </header>
 
@@ -75,7 +156,7 @@
         <div class="card-body">
           <h3>Project Two</h3>
           <p>What’s the system problem? What intervention are you testing? What changed? Summarize clearly and concisely.</p>
-          <a class="link" href="#">Explore the venture →</a>
+        <a class="link" href="#">Explore the venture →</a>
         </div>
         <img src="https://picsum.photos/960/640?2" alt="Project Two preview">
       </article>
@@ -158,10 +239,28 @@
     </div>
   </footer>
 
-  <script src="script.js" defer></script>
   <script>
-    // Basic current year fallback in case script.js doesn't set it
+    // Current year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    const header = document.querySelector('.site-header');
+    const toggle = document.querySelector('.nav-toggle');
+
+    toggle?.addEventListener('click', () => {
+      const isOpen = header.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    });
+
+    // Close the mobile menu when a link is clicked (nice UX)
+    document.querySelectorAll('#mobile-nav a').forEach(a => {
+      a.addEventListener('click', () => {
+        header.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open menu');
+      });
+    });
   </script>
 </body>
 </html>
