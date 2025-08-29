@@ -82,8 +82,8 @@ body {
 }
 
 .nav-logo {
-  height: 40px;         /* control size */
-  width: 40px;          /* force square */
+  height: 100%;
+  width: auto;
   object-fit: contain;    /* keeps aspect ratio, fills square */
   border-radius: 0;   /* circle shape */
   margin-right: 15px;   /* spacing before the links */
