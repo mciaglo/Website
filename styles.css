@@ -86,7 +86,8 @@ body {
   width: auto;
   object-fit: contain;    /* keeps aspect ratio, fills square */
   border-radius: 0;   /* circle shape */
-  margin-right: 15px;   /* spacing before the links */
+  margin-right: 15px;
+  margin-left: 0px;
 }
 
 .nav-links {
